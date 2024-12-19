@@ -1,0 +1,51 @@
+FUNCTION ShiftArray : BOOL
+VAR_INPUT
+	Direction : ShiftDirection;
+	ShiftAmount : DINT;
+	Start : DINT;
+	End: DINT;
+END_VAR
+
+VAR_IN_OUT
+	TargetArray : ARRAY[*] OF DINT;
+END_VAR
+
+VAR_OUTPUT
+	ErrorCode : STRING := 'OK';
+END_VAR
+
+VAR
+	i : DINT;
+	arrayStart : DINT := LOWER_BOUND(TargetArray, 1);
+	arrayEnd : DINT := UPPER_BOUND(TargetArray, 1);
+END_VAR
+
+
+IF Start < arrayStart OR End > arrayEnd THEN
+	ErrorCode := 'Shift start/end outside of array bounds';
+	ShiftArray := FALSE;
+	RETURN;
+END_IF
+
+IF (Direction = ShiftDirection.RIGHT AND (End + ShiftAmount) > arrayEnd) OR
+   (Direction = ShiftDirection.LEFT AND (Start - ShiftAmount) < arrayStart) THEN
+	ErrorCode := 'Shift amount outside of array bounds';
+	ShiftArray := FALSE;
+	RETURN;
+END_IF
+
+// Shift logic: Always start at the outer bound to prevent overriding values.
+IF Direction = ShiftDirection.RIGHT THEN
+	FOR i := End TO Start BY -1 DO
+		TargetArray[i + ShiftAmount] := TargetArray[i];
+	END_FOR
+END_IF
+
+IF Direction = ShiftDirection.LEFT THEN
+	FOR i := Start TO End BY +1 DO
+		TargetArray[i - ShiftAmount] := TargetArray[i];
+	END_FOR
+END_IF
+
+ShiftArray := TRUE;
+RETURN;

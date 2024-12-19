@@ -1,0 +1,47 @@
+FUNCTION ArrayInsertSorted : BOOL
+VAR_INPUT
+	Element : DINT;
+	AreaStart : DINT;
+	AreaEnd : DINT;
+END_VAR
+
+VAR_IN_OUT
+	TargetArray : ARRAY[*] OF DINT;
+END_VAR
+
+VAR_OUTPUT
+	ErrorCode : STRING := 'OK';
+END_VAR
+
+VAR
+	i : DINT;
+	arrayStart : DINT := LOWER_BOUND(TargetArray, 1);
+	arrayEnd : DINT := UPPER_BOUND(TargetArray, 1);
+END_VAR
+
+IF AreaStart < arrayStart OR AreaEnd > arrayEnd THEN
+	ErrorCode := 'Target area outside of array bounds.';
+	ArrayInsertSorted := FALSE;
+	RETURN;
+END_IF
+
+FOR i := AreaStart TO AreaEnd DO
+	// Insert before the first larger element
+	IF TargetArray[i] > Element THEN
+		ShiftArray(
+			Direction := ShiftDirection.RIGHT,
+			ShiftAmount := 1, 
+			Start := i,
+			End := AreaEnd,
+			TargetArray := TargetArray);
+			
+		TargetArray[i] := Element;
+		ArrayInsertSorted := TRUE;
+		RETURN;
+	END_IF
+END_FOR
+
+// All elements are smaller, append at the end.
+TargetArray[AreaEnd + 1] := Element;
+ArrayInsertSorted := TRUE;
+RETURN;
