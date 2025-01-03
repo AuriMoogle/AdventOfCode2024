@@ -6,7 +6,7 @@ Advent of Code is a good opportunity to learn new languages or frameworks. Addit
 
 **So to answer the initial question: Just because it's fun to find out!**
 
-I will be happy when I can solve even one of the problems. I hope there is some kind of file reader or this experiment will be over before it starts. I will not solve the puzzles if I have to type the input into the memory addresses manually. Most input files have over 1000 lines!
+I will be happy when I can solve even one of the problems. I hope there is some file reader or this experiment will be over before it starts. I will not solve the puzzles if I have to type the input into the memory addresses manually. Most input files have over 1000 lines!
 
-## Can I see code?
-Yes, the complete code is in the repository. Because Codesys saves everything in one big file, I copied the code for the completed days into the 'readableCode' folder so you can see it without downloading the repository.
+## Can I see the code?
+Yes, the complete code is in the repository. I made a readable code folder with all the files because Codesys saves everything as one big binary. Codesys has a 'print' button—the first time I saw something like that in an IDE—but it worked wonderfully as a PDF export.
